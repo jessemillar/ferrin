@@ -7,6 +7,13 @@ var Ferrin = function()
 	f.renderer.setSize(window.innerWidth, window.innerHeight)
 	document.body.appendChild(f.renderer.domElement)
 
+	this.setTitle = function(title)
+    {
+        document.title = title
+
+        return this
+    }
+
 	this.setSize = function(width, height)
 	{
 		f.renderer.setSize(window.innerWidth, window.innerHeight)

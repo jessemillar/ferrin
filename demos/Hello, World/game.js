@@ -1,7 +1,8 @@
 var rotationSpeed = 0.05
 
 var game = new Ferrin()
-	game.setColor('#ffffff')
+	game.setTitle('Hello, World')
+		.setColor('#ffffff')
 		.enableShadows()
 
 var cube1 = new Cube()
@@ -28,12 +29,18 @@ var cube3 = new Cube()
 		 .receiveShadow()
 		 .add()
 
+var penguin = new Entity()
+	penguin.setPosition(0, 0, 0)
+		   .castShadow()
+		   .receiveShadow()
+		   .load('models/monster.js')
+		   
 var plane1 = new Plane()
 	plane1.setPosition(0, 0, 0)
 		  .setSize(10, 10)
 		  .setColor('#ff0000')
 		  .receiveShadow()
-		  .add()
+		  // .add()
 
 var light = new SpotLight()
 	light.setPosition(5, -5, 15)
@@ -51,7 +58,7 @@ var render = function()
 	cube2.spin(-rotationSpeed)
 	cube3.spin(rotationSpeed)
 
-	plane1.spin(rotationSpeed / 4)
+	// plane1.spin(rotationSpeed / 4)
 
 	game.render()
 }
