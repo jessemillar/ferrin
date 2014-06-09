@@ -1,5 +1,7 @@
 var Plane = function()
 {
+	this.color = '#ffffff' // Default color to not mess with textures
+
 	this.setPosition = function(x, y, z)
 	{
 		this.x = x
@@ -24,6 +26,23 @@ var Plane = function()
 		return this
 	}
 
+	this.setTexture = function(texture)
+	{
+		this.texture = new THREE.ImageUtils.loadTexture(texture)
+
+		return this
+	}
+
+		this.repeatTexture = function()
+		{
+			this.texture.wrapS = THREE.RepeatWrapping
+			this.texture.wrapT = THREE.RepeatWrapping
+			this.texture.repeat.x = this.width
+			this.texture.repeat.y = this.depth
+
+			return this
+		}
+
 	this.castShadow = function()
 	{
 		this.castingShadow = true
@@ -41,7 +60,7 @@ var Plane = function()
 	this.add = function()
 	{
 		this.geometry = new THREE.PlaneGeometry(this.width, this.depth)
-		this.material = new THREE.MeshBasicMaterial({color: this.color, side: THREE.DoubleSide})
+		this.material = new THREE.MeshBasicMaterial({color: this.color, map: this.texture, side: THREE.DoubleSide})
 		this.plane = new THREE.Mesh(this.geometry, this.material)
 		
 		this.plane.castShadow = this.castingShadow

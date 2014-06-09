@@ -1,5 +1,7 @@
 var Cube = function()
 {
+	this.color = '#ffffff' // Default color to not mess with textures
+
 	this.setSize = function(width, height, depth)
 	{
 		this.geometry = new THREE.BoxGeometry(width, height, depth)
@@ -9,7 +11,14 @@ var Cube = function()
 
 	this.setColor = function(color)
 	{
-		this.material = new THREE.MeshLambertMaterial({color: color})
+		this.color = color
+
+		return this
+	}
+
+	this.setTexture = function(texture)
+	{
+		this.texture = new THREE.ImageUtils.loadTexture(texture)
 
 		return this
 	}
@@ -51,6 +60,7 @@ var Cube = function()
 
 		this.makeMesh = function()
 		{
+			this.material = new THREE.MeshLambertMaterial({color: this.color, map: this.texture})
 			this.mesh = new THREE.Mesh(this.geometry, this.material)
 			this.mesh.position.x = this.x
 			this.mesh.position.y = this.y
