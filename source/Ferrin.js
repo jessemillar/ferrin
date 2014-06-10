@@ -7,27 +7,20 @@ var Ferrin = function()
 	f.renderer.setSize(window.innerWidth, window.innerHeight)
 	document.body.appendChild(f.renderer.domElement)
 
+	window.addEventListener('resize', function()
+	{
+	    f.camera.aspect = window.innerWidth / window.innerHeight
+	    f.camera.updateProjectionMatrix()
+
+	    f.renderer.setSize(window.innerWidth, window.innerHeight)
+	})
+
 	this.setTitle = function(title)
     {
         document.title = title
 
         return this
     }
-
-	this.setSize = function(width, height)
-	{
-		f.renderer.setSize(window.innerWidth, window.innerHeight)
-		this.append()
-
-		return this
-	}
-
-		this.append = function()
-		{
-			document.body.appendChild(f.renderer.domElement)
-
-			return this
-		}
 
 	this.enableShadows = function()
 	{

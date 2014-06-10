@@ -1,5 +1,7 @@
 var Entity = function()
 {
+	var self = this
+
 	this.setPosition = function(x, y, z)
 	{
 		this.x = x
@@ -28,45 +30,26 @@ var Entity = function()
 		var loader = new THREE.JSONLoader();
 			loader.load(model, function (geometry, materials)
 			{
-				/*
-				var material = materials[0]
-				material.morphTargets = true;
-				material.color.setHex( 0xffaaaa );
-				material.ambient.setHex( 0x222222 );
-				*/
+				self.material = new THREE.MeshFaceMaterial(materials)
+				self.model = new THREE.Mesh(geometry, self.material)
 
-				this.material = new THREE.MeshFaceMaterial(materials)
+				self.model.position.x = self.x
+				self.model.position.y = self.y
+				self.model.position.z = self.z
 
-				this.model = new THREE.Mesh(geometry, this.material)
-
-				f.scene.add(this.model)
+				f.scene.add(self.model)
 			})
-
-		/*
-		var loader = new THREE.JSONLoader()
-			loader.load(model, function(geometry, materials)
-			{
-				this.material = new THREE.MeshFaceMaterial(materials)
-				this.model = new THREE.Mesh(geometry, this.material)
-
-				this.model.position.x = this.x
-				this.model.position.y = this.y
-				this.model.position.z = this.z
-
-				this.model.castShadow = this.castingShadow
-				this.model.receiveShadow = this.receivingShadow
-
-				f.scene.add(this.model)
-			})
-		*/
 
 		return this
 	}
 
 	this.spin = function(speed)
 	{
-		this.mesh.rotation.x += speed
-		this.mesh.rotation.y += speed
+		if (this.model)
+		{
+			this.model.rotation.x += speed
+			this.model.rotation.y += speed
+		}
 
 		return this
 	}
