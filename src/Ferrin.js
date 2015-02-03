@@ -24,6 +24,14 @@ var Ferrin = function()
 		return this
 	}
 
+	this.enableShadows = function()
+	{
+		f.renderer.shadowMapEnabled = true
+		f.renderer.shadowMapType = THREE.BasicShadowMap
+
+		return this
+	}
+
 	this.setBackgroundColor = function(color)
 	{
 		f.renderer.setClearColor(color, 1)

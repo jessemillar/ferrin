@@ -1,5 +1,7 @@
 var SpotLight = function()
 {
+	this.castingShadow = true
+
 	this.setPosition = function(x, y, z)
 	{
 		this.x = x
@@ -16,9 +18,9 @@ var SpotLight = function()
 		return this
 	}
 
-	this.castShadow = function()
+	this.disableShadow = function()
 	{
-		this.castingShadow = true
+		this.castingShadow = false
 
 		return this
 	}

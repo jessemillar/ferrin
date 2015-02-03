@@ -4,13 +4,13 @@ var movementSpeed = rotationSpeed
 var ferrin = new Ferrin()
 	ferrin.setTitle('Dungeon')
 		  .setBackgroundColor('#5c94fc')
+		  .enableShadows()
 
-var player = new Cube()
-	player.setPosition(0, 0, 1)
+var player = new Entity()
+	player.setPosition(0, 0, 2)
+		  .setMesh('cube')
 		  .setSize(1, 1, 1)
 		  .setTexture('textures/mario.png')
-		  .castShadow()
-		  .receiveShadow()
 		  .add()
 		   
 var ground = new Plane()
@@ -18,12 +18,12 @@ var ground = new Plane()
 		  .setSize(5, 5)
 		  .setTexture('textures/ground.png')
 		  .repeatTexture()
+		  .receiveShadow()
 		  .add()
 
 var light = new SpotLight()
 	light.setPosition(5, -5, 15)
 		 .setIntensity(2)
-		 .castShadow()
 		 .add()
 
 var camera = new Camera()
@@ -34,8 +34,6 @@ var keyboard = new Keyboard()
 
 function main() // This function has to be named "main" for now
 {
-	// player.spin(rotationSpeed)
-
 	if (keyboard.w)
 	{
 		player.move('y', movementSpeed)
