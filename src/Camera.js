@@ -33,19 +33,24 @@ var Camera = function()
 	}
 	*/
 
-	this.lookAt = function(x, y, z)
+	this.lookAtCoordinates = function(x, y, z)
 	{
 		f.camera.lookAt({x: x, y: y, z: z})
 
 		return this
 	}
 
-		this.lookAtObject = function(object)
+		this.lookAt = function(object) // This one will be used more often than lookAtCoordinates()
 		{
-			this.lookAt(object.x, object.y, object.z)
+			this.lookAtCoordinates(object.x, object.y, object.z)
 
 			return this
 		}
+
+	this.track = function(object)
+	{
+		
+	}
 
 	this.rotateTo = function(axis, angle)
 	{
@@ -97,13 +102,6 @@ var Camera = function()
 		{
 			f.camera.position.z += speed
 		}
-
-		return this
-	}
-
-	this.strafe = function(speed)
-	{
-		// this.move('x', )
 
 		return this
 	}

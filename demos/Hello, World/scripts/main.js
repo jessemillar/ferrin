@@ -37,9 +37,9 @@ var plane1 = new Plane()
 		  .receiveShadow()
 		  .add()
 
-var logo = new Entity()
-	logo.setPosition(3, 0, 2)
-		.load('models/logo.js')
+// var logo = new Entity()
+// 	logo.setPosition(3, 0, 2)
+// 		.load('models/logo.js')
 
 var light1 = new SpotLight()
 	light1.setPosition(5, -5, 15)
@@ -58,7 +58,7 @@ var render = function()
 	cube1.spin(rotationSpeed)
 	cube2.spin(-rotationSpeed)
 	cube3.spin(rotationSpeed)
-	logo.spin(rotationSpeed)
+	// logo.spin(rotationSpeed)
 
 	// camera.lookAtObject(cube2)
 
