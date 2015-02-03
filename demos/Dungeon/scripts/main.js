@@ -6,15 +6,15 @@ var ferrin = new Ferrin()
 		  .setBackgroundColor('#5c94fc')
 
 var player = new Entity()
-	player.setPosition(0, 0, 2)
-		  .setMesh('cube')
+	player.setMesh('cube')
 		  .setSize(1, 1, 1)
+		  .setPosition(0, 0, 0.5)
 		  .setTexture('textures/mario.png')
 		  .add()
 		   
 var ground = new Plane()
 	ground.setPosition(0, 0, 0)
-		  .setSize(5, 5)
+		  .setSize(10, 10)
 		  .setTexture('textures/ground.png')
 		  .repeatTexture()
 		  .add()
@@ -26,9 +26,9 @@ var light = new SpotLight()
 
 var camera = new Camera()
 	camera.setPosition(0, -8, 12)
-		  .lookAt(player)
+		  .lookAt(player) // Set the initial rotation to be directed toward the player entity
 
-var keyboard = new Keyboard()
+var keyboard = new Keyboard() // Enable keyboard functionality
 
 function main() // This function has to be named "main" for now
 {

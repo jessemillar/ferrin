@@ -36,53 +36,17 @@ var Camera = function()
 			return this
 		}
 
-	this.rotateTo = function(axis, angle)
+	this.move = function(axis, speed)
 	{
 		if (axis == 'x')
-		{
-			f.camera.rotation.x = angle * Math.PI / 180 + mod
-		}
-		else if (axis == 'y')
-		{
-			f.camera.rotation.y = angle * Math.PI / 180
-		}
-		else if (axis == 'z')
-		{
-			f.camera.rotation.z = angle * Math.PI / 180
-		}
-
-		return this
-	}
-
-	this.rotate = function(axis, speed)
-	{
-		if (axis == 'x')
-		{
-			f.camera.rotation.x += speed * Math.PI / 180 + mod
-		}
-		else if (axis == 'y')
-		{
-			f.camera.rotation.y += speed * Math.PI / 180
-		}
-		else if (axis == 'z')
-		{
-			f.camera.rotation.z += speed * Math.PI / 180
-		}
-
-		return this
-	}
-
-	this.move = function(direction, speed)
-	{
-		if (direction == 'x')
 		{
 			f.camera.position.x += speed
 		}
-		else if (direction == 'y')
+		else if (axis == 'y')
 		{
 			f.camera.position.y += speed
 		}
-		else if (direction == 'z')
+		else if (axis == 'z')
 		{
 			f.camera.position.z += speed
 		}
