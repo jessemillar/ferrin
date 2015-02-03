@@ -2,17 +2,6 @@ var Entity = function()
 {
 	var self = this
 
-	this.castingShadow = true
-	this.receivingShadow = true
-
-	this.disableShadow = function()
-	{
-		this.castingShadow = false
-		this.receivingShadow = false
-
-		return this
-	}
-
 	this.setPosition = function(x, y, z)
 	{
 		this.x = x
@@ -57,12 +46,6 @@ var Entity = function()
 	this.add = function()
 	{
 		this.makeMesh()
-
-		if (this.meshType == 'cube')
-		{
-			this.mesh.castShadow = this.castingShadow
-			this.mesh.receiveShadow = this.receivingShadow
-		}
 		
 		f.scene.add(this.mesh)
 

@@ -43,28 +43,11 @@ var Plane = function()
 			return this
 		}
 
-	this.castShadow = function()
-	{
-		this.castingShadow = true
-
-		return this
-	}
-
-	this.receiveShadow = function()
-	{
-		this.receivingShadow = true
-
-		return this
-	}
-
 	this.add = function()
 	{
 		this.geometry = new THREE.PlaneBufferGeometry(this.width, this.depth)
 		this.material = new THREE.MeshBasicMaterial({color: this.color, map: this.texture, side: THREE.DoubleSide})
 		this.plane = new THREE.Mesh(this.geometry, this.material)
-		
-		this.plane.castShadow = this.castingShadow
-		this.plane.receiveShadow = this.receivingShadow
 
 		f.scene.add(this.plane)
 

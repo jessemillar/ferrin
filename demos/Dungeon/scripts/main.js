@@ -4,7 +4,6 @@ var movementSpeed = rotationSpeed
 var ferrin = new Ferrin()
 	ferrin.setTitle('Dungeon')
 		  .setBackgroundColor('#5c94fc')
-		  .enableShadows()
 
 var player = new Entity()
 	player.setPosition(0, 0, 2)
@@ -18,7 +17,6 @@ var ground = new Plane()
 		  .setSize(5, 5)
 		  .setTexture('textures/ground.png')
 		  .repeatTexture()
-		  .receiveShadow()
 		  .add()
 
 var light = new SpotLight()
