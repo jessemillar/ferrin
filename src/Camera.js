@@ -1,6 +1,6 @@
 var Camera = function()
 {
-	var mod = 90 * Math.PI / 180
+	var mod = 90 * Math.PI / 180 // What is this...?
 
 	f.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
 	f.camera.up = new THREE.Vector3(0, 0, 1)
@@ -22,17 +22,6 @@ var Camera = function()
 		return this
 	}
 
-	/*
-	this.revolve = function(speed, focus)
-	{
-		f.camera.position.x = 
-		f.camera.position.y
-		this.lookAtObject(focus)
-
-		return this
-	}
-	*/
-
 	this.lookAtCoordinates = function(x, y, z)
 	{
 		f.camera.lookAt({x: x, y: y, z: z})
@@ -46,11 +35,6 @@ var Camera = function()
 
 			return this
 		}
-
-	this.track = function(object)
-	{
-		
-	}
 
 	this.rotateTo = function(axis, angle)
 	{

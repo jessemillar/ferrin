@@ -1,4 +1,5 @@
 var rotationSpeed = 0.05
+var movementSpeed = rotationSpeed
 
 var ferrin = new Ferrin()
 	ferrin.setTitle('Dungeon')
@@ -26,52 +27,34 @@ var light = new SpotLight()
 		 .add()
 
 var camera = new Camera()
-	camera.setPosition(0, -10, 6)
+	camera.setPosition(0, -8, 12)
 		  .lookAt(player)
 
 var keyboard = new Keyboard()
 
-function main()
+function main() // This function has to be named "main" for now
 {
-	player.spin(rotationSpeed)
-
-	if (keyboard.up)
-	{
-		player.move('y', rotationSpeed * 2)
-	}
-	else if (keyboard.down)
-	{
-		player.move('y', -rotationSpeed * 2)
-	}
-
-	if (keyboard.left)
-	{
-		player.strafe(-rotationSpeed * 2)
-	}
-	else if (keyboard.right)
-	{
-		player.strafe(rotationSpeed * 2)
-	}
+	// player.spin(rotationSpeed)
 
 	if (keyboard.w)
 	{
-		player.move('z', rotationSpeed * 2)
+		player.move('y', movementSpeed)
 	}
 	else if (keyboard.s)
 	{
-		player.move('z', -rotationSpeed * 2)
+		player.move('y', -movementSpeed)
 	}
 
 	if (keyboard.a)
 	{
-		player.rotate('y', 1)
+		player.move('x', -movementSpeed)
 	}
 	else if (keyboard.d)
 	{
-		player.rotate('y', -1)
+		player.move('x', movementSpeed)
 	}
 
 	ferrin.render()
 }
 
-main()
+main() // Start the rendering loop

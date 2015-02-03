@@ -32,6 +32,31 @@ var Cube = function()
 		return this
 	}
 
+	this.move = function(axis, speed)
+	{
+		if (axis == 'x')
+		{
+			this.x += speed
+		}
+		else if (axis == 'y')
+		{
+			this.y += speed
+		}
+		else if (axis == 'z')
+		{
+			this.z += speed
+		}
+
+		this.applyPosition()
+	}
+
+		this.applyPosition = function() // Apply the new position to the mesh
+		{
+			this.mesh.position.x = this.x
+			this.mesh.position.y = this.y
+			this.mesh.position.z = this.z
+		}
+
 	this.castShadow = function()
 	{
 		this.castingShadow = true

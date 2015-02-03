@@ -59,7 +59,7 @@ var Plane = function()
 
 	this.add = function()
 	{
-		this.geometry = new THREE.PlaneGeometry(this.width, this.depth)
+		this.geometry = new THREE.PlaneBufferGeometry(this.width, this.depth)
 		this.material = new THREE.MeshBasicMaterial({color: this.color, map: this.texture, side: THREE.DoubleSide})
 		this.plane = new THREE.Mesh(this.geometry, this.material)
 		
