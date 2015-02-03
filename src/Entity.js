@@ -1,11 +1,12 @@
 var Entity = function()
 {
-	var self = this
-
 	this.position = new Object()
-	this.previous = new Object() // For keeping track of past values
-	this.mesh = new Object()
-	this.three = new Object()
+	this.size = new Object()
+
+	this.previous = new Object() // For keeping track of past values like position
+
+	this.mesh = new Object() // Mesh type and file location
+	this.three = new Object() // three.js objects and values go here instead of cluttering the engine
 
 	this.setPosition = function(x, y, z)
 	{
@@ -18,9 +19,9 @@ var Entity = function()
 
 	this.setSize = function(width, height, depth)
 	{
-		this.width = width
-		this.height = height
-		this.depth = depth
+		this.size.width = width
+		this.size.height = height
+		this.size.depth = depth
 
 		return this
 	}
@@ -49,16 +50,16 @@ var Entity = function()
 
 	this.add = function()
 	{
-		this.make()
+		this.build()
 		
 		f.scene.add(this.three.mesh)
 	}
 
-		this.make = function() // This is where the magic happens
+		this.build = function() // This is where the magic happens
 		{
 			if (this.mesh.type == 'cube')
 			{
-				this.three.geometry = new THREE.BoxGeometry(this.width, this.height, this.depth)
+				this.three.geometry = new THREE.BoxGeometry(this.size.width, this.size.height, this.size.depth)
 
 				// Load a texture or color, not both
 				if (this.texture)
@@ -73,11 +74,20 @@ var Entity = function()
 				}
 
 				this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)
-				this.three.mesh.position.x = this.position.x
-				this.three.mesh.position.y = this.position.y
-				this.three.mesh.position.z = this.position.z
+				
+				this.apply()
 			}
 		}
+
+			this.apply = function() // Run after changing size, position, etc.
+			{
+				if (this.mesh.type == 'cube')
+				{
+					this.three.mesh.position.x = this.position.x
+					this.three.mesh.position.y = this.position.y
+					this.three.mesh.position.z = this.position.z
+				}
+			}
 
 	this.move = function(axis, speed)
 	{
@@ -96,16 +106,6 @@ var Entity = function()
 			this.position.z += speed
 		}
 
-		this.applyPosition()
+		this.apply()
 	}
-
-		this.applyPosition = function() // Apply the new position to the mesh
-		{
-			if (this.mesh.type == 'cube')
-			{
-				this.three.mesh.position.x = this.position.x
-				this.three.mesh.position.y = this.position.y
-				this.three.mesh.position.z = this.position.z
-			}
-		}
 }
