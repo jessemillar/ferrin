@@ -2,10 +2,6 @@ var Entity = function()
 {
 	var self = this
 
-	this.ferrin = new Object() // Where all the three.js variables for rendering are stored; the "human readable" ones will be naked (this.x as opposed to this.mesh.position.x)
-
-	this.color = 'bada55' // Set the default color
-
 	this.setPosition = function(x, y, z)
 	{
 		this.x = x
@@ -17,19 +13,20 @@ var Entity = function()
 
 	this.setSize = function(width, height, depth)
 	{
-		this.width = width
-		this.height = height
-		this.depth = depth
+		if (this.meshType == 'cube')
+		{
+			this.geometry = new THREE.BoxGeometry(width, height, depth)
+		}
 
 		return this
 	}
 
 	this.setMesh = function(type, file)
 	{
-		this.mesh = new Object()
+		this.model = new Object()
 
-		this.mesh.type = type
-		this.mesh.file = file
+		this.meshType = type
+		this.meshFile = file
 
 		return this
 	}
@@ -43,35 +40,36 @@ var Entity = function()
 
 	this.setTexture = function(texture)
 	{
-		this.texture = texture
+		this.texture = new THREE.ImageUtils.loadTexture(texture)
 
 		return this
 	}
 
 	this.add = function()
 	{
-		f.scene.add(this.make()) // Add to the global scene
-
-		console.log(this.ferrin.mesh)
+		this.make()
+		
+		f.scene.add(this.mesh)
 	}
 
 		this.make = function()
 		{
-			if (this.mesh.type == 'cube')
+			if (this.meshType == 'cube')
 			{
-				this.ferrin.texture = new THREE.ImageUtils.loadTexture(this.texture) // We need texture in order to create the material for the mesh
+				if (this.texture)
+				{
+					this.material = new THREE.MeshLambertMaterial({map: this.texture})
+				}
+				else if (this.color)
+				{
+					this.material = new THREE.MeshLambertMaterial({color: this.color})
+				}
 
-				this.ferrin.geometry = new THREE.BoxGeometry(this.width, this.height, this.depth)
-				this.ferrin.material = new THREE.MeshLambertMaterial({color: this.color, map: this.texture})
-
-				this.ferrin.mesh = new THREE.Mesh(this.ferrin.geometry, this.ferrin.material)
-
-				this.ferrin.mesh.position.x = this.x
-				this.ferrin.mesh.position.y = this.y
-				this.ferrin.mesh.position.z = this.z
+				this.mesh = new THREE.Mesh(this.geometry, this.material)
+				this.mesh.position.x = this.x
+				this.mesh.position.y = this.y
+				this.mesh.position.z = this.z
 			}
-
-			return this.ferrin.mesh
 		}
 
 	this.move = function(axis, speed)
@@ -94,11 +92,11 @@ var Entity = function()
 
 		this.applyPosition = function() // Apply the new position to the mesh
 		{
-			if (this.mesh.type == 'cube')
+			if (this.meshType == 'cube')
 			{
-				this.ferrin.mesh.position.x = this.x
-				this.ferrin.mesh.position.y = this.y
-				this.ferrin.mesh.position.z = this.z
+				this.mesh.position.x = this.x
+				this.mesh.position.y = this.y
+				this.mesh.position.z = this.z
 			}
 		}
 }
