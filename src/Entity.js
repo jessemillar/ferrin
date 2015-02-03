@@ -2,14 +2,16 @@ var Entity = function()
 {
 	var self = this
 
-	this.three = new Object()
+	this.position = new Object()
+	this.previous = new Object() // For keeping track of past values
 	this.mesh = new Object()
+	this.three = new Object()
 
 	this.setPosition = function(x, y, z)
 	{
-		this.x = x
-		this.y = y
-		this.z = z
+		this.position.x = x
+		this.position.y = y
+		this.position.z = z
 
 		return this
 	}
@@ -71,25 +73,27 @@ var Entity = function()
 				}
 
 				this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)
-				this.three.mesh.position.x = this.x
-				this.three.mesh.position.y = this.y
-				this.three.mesh.position.z = this.z
+				this.three.mesh.position.x = this.position.x
+				this.three.mesh.position.y = this.position.y
+				this.three.mesh.position.z = this.position.z
 			}
 		}
 
 	this.move = function(axis, speed)
 	{
+		this.previous = this.position // Log the current position
+
 		if (axis == 'x')
 		{
-			this.x += speed
+			this.position.x += speed
 		}
 		else if (axis == 'y')
 		{
-			this.y += speed
+			this.position.y += speed
 		}
 		else if (axis == 'z')
 		{
-			this.z += speed
+			this.position.z += speed
 		}
 
 		this.applyPosition()
@@ -99,9 +103,9 @@ var Entity = function()
 		{
 			if (this.mesh.type == 'cube')
 			{
-				this.three.mesh.position.x = this.x
-				this.three.mesh.position.y = this.y
-				this.three.mesh.position.z = this.z
+				this.three.mesh.position.x = this.position.x
+				this.three.mesh.position.y = this.position.y
+				this.three.mesh.position.z = this.position.z
 			}
 		}
 }

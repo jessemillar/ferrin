@@ -31,7 +31,7 @@ var Camera = function()
 
 		this.lookAt = function(object) // This one will be used more often than lookAtCoordinates()
 		{
-			this.lookAtCoordinates(object.x, object.y, object.z)
+			this.lookAtCoordinates(object.position.x, object.position.y, object.position.z)
 
 			return this
 		}
