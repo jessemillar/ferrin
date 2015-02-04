@@ -23,8 +23,12 @@ var light = new SpotLight()
 		 .setIntensity(2)
 		 .add()
 
+var cameraOffsetX = 0
+var cameraOffsetY = -8
+var cameraOffsetZ = 12
+
 var camera = new Camera()
-	camera.setPosition(0, -8, 12)
+	camera.setPosition(cameraOffsetX, cameraOffsetY, cameraOffsetZ)
 		  .lookAt(player)
 		  .add()
 
@@ -32,8 +36,6 @@ var keyboard = new Keyboard()
 
 function main() // This function has to be named "main" for now
 {
-	// camera.track(player)
-
 	if (keyboard.w || keyboard.a || keyboard.s || keyboard.d)
 	{
 		if (keyboard.w)
@@ -57,6 +59,8 @@ function main() // This function has to be named "main" for now
 		player.autoFace() // Run after updating the position with movement
 		player.update()
 	}
+
+	camera.follow(player, cameraOffsetX, cameraOffsetY, cameraOffsetZ)
 
 	ferrin.render() // Must be at the bottom of the main function
 }

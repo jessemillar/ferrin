@@ -64,4 +64,15 @@ var Camera = function()
 
 		return this
 	}
+
+	this.follow = function(object, xOffset, yOffset, zOffset)
+	{
+		this.position.x = object.position.x + xOffset
+		this.position.y = object.position.y + yOffset
+		this.position.z = object.position.z + zOffset
+
+		this.apply()
+
+		return this
+	}
 }

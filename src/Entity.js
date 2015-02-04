@@ -12,6 +12,9 @@ var Entity = function()
 		this.rotation.y = 0
 		this.rotation.z = 0
 
+	this.physics = new Object()
+		this.physics.momentum = new Object()
+
 	this.mesh = new Object() // Mesh type and file location
 	this.three = new Object() // three.js objects and values go here instead of cluttering the engine
 
@@ -56,6 +59,13 @@ var Entity = function()
 	this.setTexture = function(texture)
 	{
 		this.texture = texture
+
+		return this
+	}
+
+	this.setFriction = function(value)
+	{
+		this.physics.friction = value
 
 		return this
 	}
@@ -111,8 +121,6 @@ var Entity = function()
 		this.apply()
 
 		this.logPosition() // Update past position to current position
-
-		return this
 	}
 
 	this.move = function(axis, speed)
