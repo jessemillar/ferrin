@@ -1,73 +1,46 @@
 var Camera = function()
 {
-	var mod = 90 * Math.PI / 180 // What is this...?
-
-	f.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
-	f.camera.up = new THREE.Vector3(0, 0, 1)
-	f.camera.rotation.x = mod
+	this.position = new Object()
+	this.lookAt = new Object()
 
 	this.setPosition = function(x, y, z)
 	{
-		f.camera.position.x = x
-		f.camera.position.y = y
-		f.camera.position.z = z
+		this.position.x = x
+		this.position.y = y
+		this.position.z = z
 
 		return this
 	}
 
 	this.add = function()
 	{
-		f.camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000)
-
-		return this
+		this.build()
 	}
 
-	this.lookAtCoordinates = function(x, y, z)
+		this.build = function() // This is where the magic happens
+		{
+			f.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
+
+			f.camera.up = new THREE.Vector3(0, 0, 1)
+			f.camera.rotation.x = 90 * Math.PI / 180 // What is this...?
+
+			this.apply()
+
+			f.camera.lookAt({x: this.lookAt.x, y: this.lookAt.y, z: this.lookAt.z})
+		}
+
+			this.apply = function()
+			{
+				f.camera.position.x = this.position.x
+				f.camera.position.y = this.position.y
+				f.camera.position.z = this.position.z
+			}
+
+	this.lookAt = function(object) // This one will be used more often than lookAtCoordinates()
 	{
-		f.camera.lookAt({x: x, y: y, z: z})
-
-		return this
-	}
-
-		this.lookAt = function(object) // This one will be used more often than lookAtCoordinates()
-		{
-			this.lookAtCoordinates(object.position.x, object.position.y, object.position.z)
-
-			return this
-		}
-
-	this.rotateTo = function(axis, angle)
-	{
-		if (axis == 'x')
-		{
-			f.camera.rotation.x = angle * Math.PI / 180 + mod
-		}
-		else if (axis == 'y')
-		{
-			f.camera.rotation.y = angle * Math.PI / 180
-		}
-		else if (axis == 'z')
-		{
-			f.camera.rotation.z = angle * Math.PI / 180
-		}
-
-		return this
-	}
-
-	this.rotate = function(axis, speed)
-	{
-		if (axis == 'x')
-		{
-			f.camera.rotation.x += speed * Math.PI / 180 + mod
-		}
-		else if (axis == 'y')
-		{
-			f.camera.rotation.y += speed * Math.PI / 180
-		}
-		else if (axis == 'z')
-		{
-			f.camera.rotation.z += speed * Math.PI / 180
-		}
+		this.lookAt.x = object.position.x
+		this.lookAt.y = object.position.y
+		this.lookAt.z = object.position.z
 
 		return this
 	}
@@ -76,16 +49,18 @@ var Camera = function()
 	{
 		if (direction == 'x')
 		{
-			f.camera.position.x += speed
+			this.position.x += speed
 		}
 		else if (direction == 'y')
 		{
-			f.camera.position.y += speed
+			this.position.y += speed
 		}
 		else if (direction == 'z')
 		{
-			f.camera.position.z += speed
+			this.position.z += speed
 		}
+
+		this.apply()
 
 		return this
 	}

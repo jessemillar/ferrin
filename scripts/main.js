@@ -14,7 +14,7 @@ var player = new Entity()
 		   
 var ground = new Plane()
 	ground.setPosition(0, 0, 0)
-		  .setSize(5, 5)
+		  .setSize(10, 10)
 		  .setTexture('textures/ground.png')
 		  .add()
 
@@ -26,6 +26,7 @@ var light = new SpotLight()
 var camera = new Camera()
 	camera.setPosition(0, -8, 12)
 		  .lookAt(player)
+		  .add()
 
 var keyboard = new Keyboard()
 
