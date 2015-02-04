@@ -21,6 +21,7 @@ var Entity = function()
 		this.position.y = y
 		this.position.z = z
 
+		// Set the position as both past and present so we have something to compare later on
 		this.previous.position.x = x
 		this.previous.position.y = y
 		this.previous.position.z = z
@@ -107,9 +108,9 @@ var Entity = function()
 
 	this.update = function()
 	{
-		this.logPosition()
-		
 		this.apply()
+
+		this.logPosition() // Update past position to current position
 
 		return this
 	}
@@ -118,17 +119,14 @@ var Entity = function()
 	{
 		if (axis == 'x')
 		{
-			this.previous.position.x = this.position.x
 			this.position.x += speed
 		}
 		else if (axis == 'y')
 		{
-			this.previous.position.y = this.position.y
 			this.position.y += speed
 		}
 		else if (axis == 'z')
 		{
-			this.previous.position.z = this.position.z
 			this.position.z += speed
 		}
 	}
