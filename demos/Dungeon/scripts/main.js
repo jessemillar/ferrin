@@ -16,7 +16,6 @@ var ground = new Plane()
 	ground.setPosition(0, 0, 0)
 		  .setSize(5, 5)
 		  .setTexture('textures/ground.png')
-		  .repeatTexture()
 		  .add()
 
 var light = new SpotLight()

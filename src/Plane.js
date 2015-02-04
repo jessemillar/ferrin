@@ -1,20 +1,26 @@
 var Plane = function()
 {
-	this.color = '#ffffff' // Default color to not mess with textures
+	this.position = new Object()
+	this.size = new Object()
 
-	this.setPosition = function(x, y, z)
+	this.texture = new Object()
+	this.texture.tile = true // Tile textures by default
+
+	this.three = new Object() // Sandbox three.js stuff
+
+	this.setPosition = function(x, y, z) // Doesn't do anything currently
 	{
-		this.x = x
-		this.y = y
-		this.z = z
+		this.position.x = x
+		this.position.y = y
+		this.position.z = z
 
 		return this
 	}
 
 	this.setSize = function(width, depth)
 	{
-		this.width = width
-		this.depth = depth
+		this.size.width = width
+		this.size.depth = depth
 
 		return this
 	}
@@ -28,36 +34,49 @@ var Plane = function()
 
 	this.setTexture = function(texture)
 	{
-		this.texture = new THREE.ImageUtils.loadTexture(texture)
+		this.texture.file = texture
 
 		return this
 	}
 
-		this.repeatTexture = function()
+		this.disableTile = function()
 		{
-			this.texture.wrapS = THREE.RepeatWrapping
-			this.texture.wrapT = THREE.RepeatWrapping
-			this.texture.repeat.x = this.width
-			this.texture.repeat.y = this.depth
+			this.texture.tile = false
 
 			return this
 		}
 
 	this.add = function()
 	{
-		this.geometry = new THREE.PlaneBufferGeometry(this.width, this.depth)
-		this.material = new THREE.MeshBasicMaterial({color: this.color, map: this.texture, side: THREE.DoubleSide})
-		this.plane = new THREE.Mesh(this.geometry, this.material)
+		this.build()
 
 		f.scene.add(this.plane)
-
-		return this
 	}
 
-	this.spin = function(speed)
-	{
-		this.plane.rotation.z += speed
+		this.build = function() // This is where the magic happens
+		{
 
-		return this
-	}
+			this.geometry = new THREE.PlaneBufferGeometry(this.size.width, this.size.depth)
+
+			if (this.texture.file) // Apply texture if we've set one
+			{
+				this.three.texture = new THREE.ImageUtils.loadTexture(this.texture.file)
+
+				if (this.texture.tile) // Tile the texture if we haven't said otherwise
+				{
+					this.three.texture.wrapS = THREE.RepeatWrapping
+					this.three.texture.wrapT = THREE.RepeatWrapping
+					this.three.texture.repeat.x = this.size.width
+					this.three.texture.repeat.y = this.size.depth
+				}
+
+				this.material = new THREE.MeshBasicMaterial({map: this.three.texture, side: THREE.DoubleSide})
+			}
+			else if (this.color) // Apply a color if we have one
+			{
+				this.material = new THREE.MeshBasicMaterial({color: this.color, side: THREE.DoubleSide})
+			}
+
+			this.plane = new THREE.Mesh(this.geometry, this.material)
+		}
 }
