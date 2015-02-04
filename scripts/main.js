@@ -32,25 +32,33 @@ var keyboard = new Keyboard()
 
 function main() // This function has to be named "main" for now
 {
-	if (keyboard.w)
+	// camera.track(player)
+
+	if (keyboard.w || keyboard.a || keyboard.s || keyboard.d)
 	{
-		player.move('y', movementSpeed)
-	}
-	else if (keyboard.s)
-	{
-		player.move('y', -movementSpeed)
+		if (keyboard.w)
+		{
+			player.move('y', movementSpeed)
+		}
+		else if (keyboard.s)
+		{
+			player.move('y', -movementSpeed)
+		}
+
+		if (keyboard.a)
+		{
+			player.move('x', -movementSpeed)
+		}
+		else if (keyboard.d)
+		{
+			player.move('x', movementSpeed)
+		}
+
+		player.autoFace() // Run after updating the position with movement
+		player.update()
 	}
 
-	if (keyboard.a)
-	{
-		player.move('x', -movementSpeed)
-	}
-	else if (keyboard.d)
-	{
-		player.move('x', movementSpeed)
-	}
-
-	ferrin.render()
+	ferrin.render() // Must be at the bottom of the main function
 }
 
 main() // Start the rendering loop
