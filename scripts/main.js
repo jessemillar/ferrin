@@ -52,13 +52,9 @@ var ground = new Plane()
 		  .receiveShadows()
 		  .add()
 
-// var cameraOffsetX = 0
-// var cameraOffsetY = -8
-// var cameraOffsetZ = 12
-
 var cameraOffsetX = 0
-var cameraOffsetY = 0
-var cameraOffsetZ = 15
+var cameraOffsetY = -8
+var cameraOffsetZ = 12
 
 var camera = new Camera()
 	camera.setPosition(cameraOffsetX, cameraOffsetY, cameraOffsetZ)
@@ -67,6 +63,8 @@ var camera = new Camera()
 
 function main() // This function has to be named "main" for now
 {
+	console.log(tool.measureDistance(player, enemy))
+
 	if (tool.checkCollision(player, enemy))
 	{
 		player.setOutlineColor(0xff0000)

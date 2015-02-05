@@ -5,6 +5,30 @@ var Tool = function()
 		return Math.random() * (max - min) + min
 	}
 
+	this.measureX = function(a, b)
+	{
+		var aX = a.position.x - a.size.width / 2
+		var bX = b.position.x - b.size.width / 2
+
+		return Math.abs(aX - bX)
+	}
+
+	this.measureY = function(a, b)
+	{
+		var aY = a.position.y - a.size.depth / 2
+		var bY = b.position.y - b.size.depth / 2
+
+		return Math.abs(aY - bY)
+	}
+
+		this.measureDistance = function(a, b)
+		{
+			var x = this.measureX(a, b)
+			var y = this.measureY(a, b)
+
+			return Math.sqrt(x * x + y * y)
+		}
+
 	this.checkCollision = function(a, b)
 	{
 		if (!a.deleted)
@@ -28,17 +52,18 @@ var Tool = function()
 			}
 			else
 			{
-				var xA = a.position.x - a.size.width / 2
-				var yA = a.position.y - a.size.depth / 2
-				var widthA = a.size.width
-				var depthA = a.size.depth
+				var aX = a.position.x - a.size.width / 2
+				var aY = a.position.y - a.size.depth / 2
+				var aWidth = a.size.width
+				var aDepth = a.size.depth
 
-				var xB = b.position.x - b.size.width / 2
-				var yB = b.position.y - b.size.depth / 2
-				var widthB = b.size.width
-				var depthB = b.size.depth
+				var bX = b.position.x - b.size.width / 2
+				var bY = b.position.y - b.size.depth / 2
+				var bWidth = b.size.width
+				var bDepth = b.size.depth
 
-				if (xA < xB + widthB && xA + widthA > xB && yA < yB + depthB && yA + depthA > yB)				{
+				if (aX < bX + bWidth && aX + aWidth > bX && aY < bY + bDepth && aY + aDepth > bY)
+				{
 					return b
 				}
 				else
