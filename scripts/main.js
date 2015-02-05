@@ -20,15 +20,21 @@ var ground = new Plane()
 	ground.setPosition(0, 0, -0.6)
 		  .setSize(10, 10)
 		  // .setTexture('textures/ground.png')
-		  .setColor(0xff0000)
+		  .setColor(0x0000ff)
 		  .receiveShadows()
 		  .add()
 
-var light = new SpotLight()
-	light.setPosition(5, 5, 5)
-		 .setIntensity(2)
-		 .castShadows()
-		 .add()
+var ambience = new Light()
+	ambience.setType('ambient')
+			.setColor(0xff0000)
+			.add()
+
+var spotlight = new Light()
+	spotlight.setPosition(5, 5, 5)
+			 .setType('spotlight')
+			 .setIntensity(2)
+		 	 .castShadows()
+		 	 .add()
 
 var cameraOffsetX = 0
 var cameraOffsetY = -8

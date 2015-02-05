@@ -1,5 +1,9 @@
-var SpotLight = function()
+var Light = function()
 {
+	this.type = 'ambient'
+	this.color = 0xffffff
+	this.intensity = 1
+
 	this.position = new Object()
 
 	this.shadows = new Object()
@@ -12,6 +16,20 @@ var SpotLight = function()
 		this.position.x = x
 		this.position.y = y
 		this.position.z = z
+
+		return this
+	}
+
+	this.setType = function(type)
+	{
+		this.type = type
+
+		return this
+	}
+
+	this.setColor = function(color)
+	{
+		this.color = color
 
 		return this
 	}
@@ -32,7 +50,15 @@ var SpotLight = function()
 
 	this.add = function()
 	{
-		this.three.light = new THREE.SpotLight(0xffffff)
+		if (this.type == 'ambient')
+		{
+			this.three.light = new THREE.AmbientLight(this.color)
+		}
+		else if (this.type == 'spotlight')
+		{
+			this.three.light = new THREE.SpotLight(this.color)
+		}
+		
 		this.three.light.intensity = this.intensity
 
 		if (this.shadows.cast)

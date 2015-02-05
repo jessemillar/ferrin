@@ -6,7 +6,7 @@ var Ferrin = function()
 	f.renderer = new THREE.WebGLRenderer()
 		f.renderer.setSize(window.innerWidth, window.innerHeight)
 		f.renderer.shadowMapEnabled = true
-		f.renderer.shadowMapSoft = true
+		f.renderer.shadowMapType = THREE.PCFShadowMap
 
 	document.body.appendChild(f.renderer.domElement) // Append the renderer to the window
 
