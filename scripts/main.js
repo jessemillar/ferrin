@@ -10,18 +10,33 @@ var player = new Entity()
 		  .setMesh('cube')
 		  .setSize(1, 1, 1)
 		  .setTexture('textures/mario.png')
+		  .castShadows()
+		  .receiveShadows()
 		  .enableOutline()
 		  .add()
 		   
-var ground = new Plane()
-	ground.setPosition(0, 0, 0)
-		  .setSize(10, 10)
-		  .setTexture('textures/ground.png')
-		  .add()
+// var ground = new Plane()
+// 	ground.setSize(10, 10)
+// 		  // .setTexture('textures/ground.png')
+// 		  .setColor('#6C6C6C')
+// 		  .receiveShadows()
+// 		  .add()
+
+f.scene.add(new THREE.AmbientLight(0x666666));
+
+var groundMaterial = new THREE.MeshPhongMaterial({
+        color: 0x6C6C6C
+    });
+    var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), groundMaterial);
+    // plane.rotation.x = -Math.PI / 2;
+    plane.receiveShadow = true;
+
+    f.scene.add(plane);
 
 var light = new SpotLight()
-	light.setPosition(5, -5, 15)
+	light.setPosition(5, 5, 5)
 		 .setIntensity(2)
+		 .castShadows()
 		 .add()
 
 var cameraOffsetX = 0

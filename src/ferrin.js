@@ -6,6 +6,10 @@ var Ferrin = function()
 	f.renderer = new THREE.WebGLRenderer()
 	f.renderer.setSize(window.innerWidth, window.innerHeight)
 
+	// Shadow settings
+	f.renderer.shadowMapEnabled = true
+	f.renderer.shadowMapSoft = true // Make the shadows soft
+
 	document.body.appendChild(f.renderer.domElement) // Append the renderer to the window
 
 	window.addEventListener('resize', function() // Always resize the three.js instance to fill the whole window

@@ -6,6 +6,9 @@ var Plane = function()
 	this.texture = new Object()
 	this.texture.tile = true // Tile textures by default
 
+	this.shadows = new Object()
+		this.shadows.receive = false
+
 	this.three = new Object() // Sandbox three.js stuff
 
 	this.setPosition = function(x, y, z) // Doesn't do anything currently
@@ -46,17 +49,21 @@ var Plane = function()
 			return this
 		}
 
+	this.receiveShadows = function()
+	{
+		this.shadows.receive = true
+
+		return this
+	}
+
 	this.add = function()
 	{
 		this.build()
-
-		f.scene.add(this.plane)
 	}
 
 		this.build = function() // This is where the magic happens
 		{
-
-			this.geometry = new THREE.PlaneBufferGeometry(this.size.width, this.size.depth)
+			this.three.geometry = new THREE.PlaneGeometry(this.size.width, this.size.depth)
 
 			if (this.texture.file) // Apply texture if we've set one
 			{
@@ -70,13 +77,21 @@ var Plane = function()
 					this.three.texture.repeat.y = this.size.depth
 				}
 
-				this.material = new THREE.MeshBasicMaterial({map: this.three.texture, side: THREE.DoubleSide})
+				this.three.material = new THREE.MeshPhongMaterial({map: this.three.texture})
 			}
 			else if (this.color) // Apply a color if we have one
 			{
-				this.material = new THREE.MeshBasicMaterial({color: this.color, side: THREE.DoubleSide})
+				console.log('setting color')
+				this.three.material = new THREE.MeshPhongMaterial({color: this.color})
 			}
 
-			this.plane = new THREE.Mesh(this.geometry, this.material)
+			this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)
+
+			if (this.shadows.receive)
+			{
+				this.three.mesh.receiveShadow = true
+			}
+
+			f.scene.add(this.three.mesh)
 		}
 }

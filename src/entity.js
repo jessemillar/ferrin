@@ -12,6 +12,9 @@ var Entity = function()
 		this.rotation.y = 0
 		this.rotation.z = 0
 
+	this.shadows = new Object()
+		this.shadows.cast = false
+		this.shadows.receive = false
 	this.outline = false
 
 	this.mesh = new Object() // Mesh type and file location
@@ -63,6 +66,20 @@ var Entity = function()
 		return this
 	}
 
+	this.castShadows = function()
+	{
+		this.shadows.cast = true
+
+		return this
+	}
+
+	this.receiveShadows = function()
+	{
+		this.shadows.receive = true
+
+		return this
+	}
+
 	this.enableOutline = function()
 	{
 		this.outline = true
@@ -94,6 +111,17 @@ var Entity = function()
 				}
 
 				this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)
+
+				// Load up shadow configurations if enabled
+				if (this.shadows.cast)
+				{
+					this.three.mesh.castShadow = true
+				}
+
+				if (this.shadows.receive)
+				{
+					this.three.mesh.receiveShadow = true
+				}
 
 				// Load the outline shader if enabled
 				if (this.outline)
