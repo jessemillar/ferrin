@@ -20,9 +20,9 @@ var spotlight = new Light()
 		 	 .add()
 
 var player = new Entity()
-	player.setPosition(0, 0, 0.5)
+	player.setSize(1, 1, 1)
+		  .setPosition(0, 0, player.size.height / 2)
 		  .setMesh('cube')
-		  .setSize(1, 1, 1)
 		  .setTexture('textures/mario.png')
 		  // .setColor(0x0aeedf)
 		  .castShadows()
@@ -31,9 +31,9 @@ var player = new Entity()
 		  .add()
 
 var enemy = new Entity()
-	enemy.setPosition(tool.random(-5, 5), tool.random(-5, 5), 0.75)
+	enemy.setSize(1.5, 1.5, 1.5)
+		 .setPosition(tool.random(-5, 5), tool.random(-5, 5), enemy.size.height / 2)
 		 .setMesh('cube')
-		 .setSize(1.5, 1.5, 1.5)
 		 .setTexture('textures/ground.png')
 		 // .setColor(0x0aeedf)
 		 .castShadows()
@@ -63,8 +63,6 @@ var camera = new Camera()
 
 function main() // This function has to be named "main" for now
 {
-	console.log(tool.measureDistance(player, enemy))
-
 	if (tool.checkCollision(player, enemy))
 	{
 		player.setOutlineColor(0xff0000)
@@ -74,7 +72,7 @@ function main() // This function has to be named "main" for now
 		player.setOutlineColor(0x00ff00)
 	}
 
-	if (keyboard.w || keyboard.a || keyboard.s || keyboard.d)
+	if (keyboard.w || keyboard.a || keyboard.s || keyboard.d) // If we're using valid controls
 	{
 		if (keyboard.w)
 		{

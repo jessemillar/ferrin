@@ -3,6 +3,7 @@ var Light = function()
 	this.type = 'ambient'
 	this.color = 0xffffff
 	this.intensity = 1
+	this.debug = false
 
 	this.position = new Object()
 
@@ -48,6 +49,13 @@ var Light = function()
 		return this
 	}
 
+	this.enableDebug = function()
+	{
+		this.debug = true
+
+		return this
+	}
+
 	this.add = function()
 	{
 		if (this.type == 'ambient')
@@ -73,7 +81,10 @@ var Light = function()
 			this.three.light.shadowMapWidth = 2048
 			this.three.light.shadowMapHeight = 2048
 
-			this.three.light.shadowCameraVisible = true // Debug
+			if (this.debug)
+			{
+				this.three.light.shadowCameraVisible = true // Show the angle and scope of the light
+			}
 		}
 
 		this.apply()
