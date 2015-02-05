@@ -145,9 +145,10 @@ var Entity = function()
 				// Create a marker beneath the model if enabled
 				if (this.marker.enabled)
 				{
+					var scale = 2.5
 					var size = Math.max(this.size.width, this.size.height)
 
-					this.three.marker.geometry = new THREE.PlaneBufferGeometry(size * 3, size * 3)
+					this.three.marker.geometry = new THREE.PlaneBufferGeometry(size * scale, size * scale)
 
 					this.three.marker.texture = new THREE.ImageUtils.loadTexture(this.marker.texture)
 					this.three.marker.material = new THREE.MeshLambertMaterial({map: this.three.marker.texture, transparent: true})

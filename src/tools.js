@@ -29,6 +29,27 @@ var Tool = function()
 			return Math.sqrt(x * x + y * y)
 		}
 
+	this.getXY = function(object)
+	{
+		var width = window.innerWidth
+		var height = window.innerHeight
+
+		var widthHalf = width / 2
+		var heightHalf = height / 2
+
+		var vector = new THREE.Vector3()
+		var projector = new THREE.Projector()
+
+		var theVector = vector.setFromMatrixPosition(object.three.mesh.matrixWorld)
+
+		theVector.project(f.camera)
+
+		vector.x = (vector.x * widthHalf) + widthHalf
+		vector.y = - (vector.y * heightHalf) + heightHalf
+
+		return vector
+	}
+
 	this.checkCollision = function(a, b)
 	{
 		if (!a.deleted)

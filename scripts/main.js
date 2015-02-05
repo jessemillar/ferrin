@@ -45,6 +45,11 @@ var enemy = new Entity()
 var enemies = new Group()
 	enemies.add(enemy)
 
+var enemyHealth = new HUD()
+	enemyHealth.setSize(270, 45)
+			   .setImage('images/health_bar.png')
+			   .add()
+
 var ground = new Plane()
 	ground.setPosition(0, 0, -0.1)
 		  .setSize(20, 20)
@@ -64,6 +69,8 @@ var camera = new Camera()
 
 function main() // This function has to be named "main" for now
 {
+	enemyHealth.snapTo(tool.getXY(enemy).x - enemyHealth.getWidth() / 2, tool.getXY(enemy).y + 50)
+
 	if (tool.checkCollision(player, enemy))
 	{
 		player.setOutlineColor(0xff0000)
