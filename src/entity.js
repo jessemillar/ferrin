@@ -15,7 +15,9 @@ var Entity = function()
 	this.shadows = new Object()
 		this.shadows.cast = false
 		this.shadows.receive = false
-	this.outline = false
+	this.outline = new Object()
+		this.outline.enabled = false
+		this.outline.color = 0x000000
 
 	this.mesh = new Object() // Mesh type and file location
 	this.three = new Object() // three.js objects and values go here instead of cluttering the engine
@@ -80,9 +82,14 @@ var Entity = function()
 		return this
 	}
 
-	this.enableOutline = function()
+	this.enableOutline = function(color)
 	{
-		this.outline = true
+		this.outline.enabled = true
+
+		if (color)
+		{
+			this.outline.color = color
+		}
 
 		return this
 	}
@@ -113,9 +120,9 @@ var Entity = function()
 				this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)
 
 				// Load the outline shader if enabled
-				if (this.outline)
+				if (this.outline.enabled)
 				{
-					this.three.outline.material = new THREE.MeshBasicMaterial({color: 0x00FF00, side: THREE.BackSide})
+					this.three.outline.material = new THREE.MeshBasicMaterial({color: this.outline.color, side: THREE.BackSide})
 					this.three.outline.mesh = new THREE.Mesh(this.three.geometry, this.three.outline.material)
 						this.three.outline.mesh.scale.multiplyScalar(1.1)
 						this.three.outline.mesh.position.x = this.position.x
@@ -128,13 +135,11 @@ var Entity = function()
 				// Load up shadow configurations if enabled
 				if (this.shadows.cast)
 				{
-					console.log('Entity shadow casting enabled')
 					this.three.mesh.castShadow = true
 				}
 
 				if (this.shadows.receive)
 				{
-					console.log('Entity shadow receiving enabled')
 					this.three.mesh.receiveShadow = true
 				}
 

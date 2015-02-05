@@ -67,6 +67,8 @@ var Plane = function()
 
 			if (this.texture.file) // Apply texture if we've set one
 			{
+				console.log('Note: Shadows may not display on tiled surfaces')
+
 				this.three.texture = new THREE.ImageUtils.loadTexture(this.texture.file)
 
 				if (this.texture.tile) // Tile the texture if we haven't said otherwise
@@ -81,7 +83,6 @@ var Plane = function()
 			}
 			else if (this.color) // Apply a color if we have one
 			{
-				console.log('Setting plane color')
 				this.three.material = new THREE.MeshLambertMaterial({color: this.color})
 				this.three.material.ambient = this.three.material.color // Keep ambient lights from killing the color of planes
 			}
@@ -90,7 +91,6 @@ var Plane = function()
 
 			if (this.shadows.receive)
 			{
-				console.log('Plane shadow receiving enabled')
 				this.three.mesh.receiveShadow = true
 			}
 
