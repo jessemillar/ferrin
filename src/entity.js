@@ -94,6 +94,18 @@ var Entity = function()
 		return this
 	}
 
+	this.setOutlineColor = function(color) // Use after object instantiation
+	{
+		this.outline.color = color
+
+		this.updateOutline()
+	}
+
+		this.updateOutline = function()
+		{
+			this.three.outline.material.color.setHex(this.outline.color)
+		}
+
 	this.add = function()
 	{
 		this.build()
