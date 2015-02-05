@@ -83,6 +83,7 @@ var Plane = function()
 			{
 				console.log('Setting plane color')
 				this.three.material = new THREE.MeshLambertMaterial({color: this.color})
+				this.three.material.ambient = this.three.material.color // Keep ambient lights from killing the color of planes
 			}
 
 			this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)

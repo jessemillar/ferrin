@@ -56,7 +56,8 @@ var Light = function()
 		}
 		else if (this.type == 'spotlight')
 		{
-			this.three.light = new THREE.SpotLight(this.color)
+			// this.three.light = new THREE.SpotLight(this.color)
+			this.three.light = new THREE.SpotLight(0xffffff, 1, 0, Math.PI / 2, 1)
 		}
 		
 		this.three.light.intensity = this.intensity
@@ -65,6 +66,15 @@ var Light = function()
 		{
 			console.log('Light shadow casting enabled')
 			this.three.light.castShadow = true
+
+			this.three.light.shadowCameraNear = 1
+			this.three.light.shadowCameraFar = 50
+
+			// this.three.light.shadowBias = 0.0001
+			// this.three.light.shadowDarkness = 0.5
+
+			this.three.light.shadowMapWidth = 512
+			this.three.light.shadowMapHeight = 512
 
 			this.three.light.shadowCameraVisible = true // Debug
 		}
