@@ -45,6 +45,15 @@ var HUD = function()
 		return this
 	}
 
+		this.healthBar = function(object, yOffset)
+		{
+			var tool = new Tool()
+
+			this.snapTo(tool.getXY(object).x - this.getWidth() / 2, tool.getXY(object).y + yOffset)
+
+			return this
+		}
+
 	this.getWidth = function()
 	{
 		return parseInt(this.dom.style.width)

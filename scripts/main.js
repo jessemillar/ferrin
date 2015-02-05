@@ -1,6 +1,8 @@
 var rotationSpeed = 0.05
 var movementSpeed = rotationSpeed
 
+var healthOffset = 40
+
 var keyboard = new Keyboard()
 var tool = new Tool()
 
@@ -30,6 +32,11 @@ var player = new Entity()
 		  .enableOutline(0x00ff00)
 		  .enableMarker('textures/marker.png', 2, 2)
 		  .add()
+
+var playerHealth = new HUD()
+	playerHealth.setSize(270, 45)
+			    .setImage('images/health_bar.png')
+			    .add()
 
 var enemy = new Entity()
 	enemy.setSize(1.5, 1.5, 1.5)
@@ -69,7 +76,8 @@ var camera = new Camera()
 
 function main() // This function has to be named "main" for now
 {
-	enemyHealth.snapTo(tool.getXY(enemy).x - enemyHealth.getWidth() / 2, tool.getXY(enemy).y + 50)
+	playerHealth.healthBar(player, healthOffset)
+	enemyHealth.healthBar(enemy, healthOffset)
 
 	if (tool.checkCollision(player, enemy))
 	{
