@@ -39,9 +39,15 @@ var SpotLight = function()
 
 		if (this.shadows.cast)
 		{
+			console.log('Light shadow casting enabled')
 			this.three.light.castShadow = true
 			this.three.light.shadowDarkness = this.shadows.darkness
 			this.three.light.shadowCameraVisible = true
+
+			this.three.light.shadowCameraRight    =  5;
+			this.three.light.shadowCameraLeft     = -5;
+			this.three.light.shadowCameraTop      =  5;
+			this.three.light.shadowCameraBottom   = -5;
 		}
 
 		f.scene.add(this.three.light)

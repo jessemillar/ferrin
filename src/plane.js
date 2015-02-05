@@ -63,7 +63,7 @@ var Plane = function()
 
 		this.build = function() // This is where the magic happens
 		{
-			this.three.geometry = new THREE.PlaneGeometry(this.size.width, this.size.depth)
+			this.three.geometry = new THREE.PlaneBufferGeometry(this.size.width, this.size.depth)
 
 			if (this.texture.file) // Apply texture if we've set one
 			{
@@ -89,9 +89,19 @@ var Plane = function()
 
 			if (this.shadows.receive)
 			{
+				console.log('Plane shadow receiving enabled')
 				this.three.mesh.receiveShadow = true
 			}
 
+			this.apply()
+
 			f.scene.add(this.three.mesh)
 		}
+
+			this.apply = function()
+			{
+				this.three.mesh.position.x = this.position.x
+				this.three.mesh.position.y = this.position.y
+				this.three.mesh.position.z = this.position.z
+			}
 }

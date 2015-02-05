@@ -6,7 +6,7 @@ var ferrin = new Ferrin()
 		  .setBackgroundColor('#5c94fc')
 
 var player = new Entity()
-	player.setPosition(0, 0, 0.6)
+	player.setPosition(0, 0, 0)
 		  .setMesh('cube')
 		  .setSize(1, 1, 1)
 		  .setTexture('textures/mario.png')
@@ -15,23 +15,12 @@ var player = new Entity()
 		  .enableOutline()
 		  .add()
 		   
-// var ground = new Plane()
-// 	ground.setSize(10, 10)
-// 		  // .setTexture('textures/ground.png')
-// 		  .setColor('#6C6C6C')
-// 		  .receiveShadows()
-// 		  .add()
-
-f.scene.add(new THREE.AmbientLight(0x666666));
-
-var groundMaterial = new THREE.MeshPhongMaterial({
-        color: 0x6C6C6C
-    });
-    var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), groundMaterial);
-    // plane.rotation.x = -Math.PI / 2;
-    plane.receiveShadow = true;
-
-    f.scene.add(plane);
+var ground = new Plane()
+	ground.setPosition(0, 0, -0.6)
+		  .setSize(10, 10)
+		  .setTexture('textures/ground.png')
+		  .receiveShadows()
+		  .add()
 
 var light = new SpotLight()
 	light.setPosition(5, 5, 5)
@@ -47,8 +36,6 @@ var camera = new Camera()
 	camera.setPosition(cameraOffsetX, cameraOffsetY, cameraOffsetZ)
 		  .lookAt(player)
 		  .add()
-
-f.camera.updateProjectionMatrix()
 
 var keyboard = new Keyboard()
 

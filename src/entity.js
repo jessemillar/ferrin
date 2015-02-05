@@ -115,11 +115,13 @@ var Entity = function()
 				// Load up shadow configurations if enabled
 				if (this.shadows.cast)
 				{
+					console.log('Entity shadow casting enabled')
 					this.three.mesh.castShadow = true
 				}
 
 				if (this.shadows.receive)
 				{
+					console.log('Entity shadow receiving enabled')
 					this.three.mesh.receiveShadow = true
 				}
 
