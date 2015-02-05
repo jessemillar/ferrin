@@ -69,8 +69,9 @@ var Light = function()
 			this.three.light.shadowCameraFar = 150
 			this.three.light.shadowCameraFov = 100
 
-			this.three.light.shadowMapWidth = 512
-			this.three.light.shadowMapHeight = 512
+			// For decent shadows
+			this.three.light.shadowMapWidth = 1024
+			this.three.light.shadowMapHeight = 1024
 
 			this.three.light.shadowCameraVisible = true // Debug
 		}
