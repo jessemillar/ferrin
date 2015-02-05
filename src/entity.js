@@ -18,10 +18,13 @@ var Entity = function()
 	this.outline = new Object()
 		this.outline.enabled = false
 		this.outline.color = 0x000000
+	this.marker = new Object()
+		this.marker.enabled = false
 
 	this.mesh = new Object() // Mesh type and file location
 	this.three = new Object() // three.js objects and values go here instead of cluttering the engine
 		this.three.outline = new Object()
+		this.three.marker = new Object()
 
 	this.setPosition = function(x, y, z)
 	{
@@ -82,6 +85,15 @@ var Entity = function()
 		return this
 	}
 
+	this.enableMarker = function(texture)
+	{
+		this.marker.enabled = true
+
+		this.marker.texture = texture
+
+		return this
+	}
+
 	this.enableOutline = function(color)
 	{
 		this.outline.enabled = true
@@ -121,7 +133,6 @@ var Entity = function()
 				if (this.texture)
 				{
 					this.three.texture = new THREE.ImageUtils.loadTexture(this.texture)
-
 					this.three.material = new THREE.MeshLambertMaterial({map: this.three.texture})
 				}
 				else if (this.color)
@@ -131,15 +142,32 @@ var Entity = function()
 
 				this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)
 
-				// Load the outline shader if enabled
+				// Create a marker beneath the model if enabled
+				if (this.marker.enabled)
+				{
+					var size = Math.max(this.size.width, this.size.height)
+
+					this.three.marker.geometry = new THREE.PlaneBufferGeometry(size * 2, size * 2)
+
+					this.three.marker.texture = new THREE.ImageUtils.loadTexture(this.marker.texture)
+					this.three.marker.material = new THREE.MeshLambertMaterial({map: this.three.marker.texture, transparent: true})
+
+					this.three.marker.mesh = new THREE.Mesh(this.three.marker.geometry, this.three.marker.material)
+
+					if (this.shadows.cast) // Make sure the shadow goes over the marker if our entity is casting a shadow
+					{
+						this.three.marker.mesh.receiveShadow = true
+					}
+
+					f.scene.add(this.three.marker.mesh)
+				}
+
+				// Load the outline "shader" if enabled
 				if (this.outline.enabled)
 				{
 					this.three.outline.material = new THREE.MeshBasicMaterial({color: this.outline.color, side: THREE.BackSide})
 					this.three.outline.mesh = new THREE.Mesh(this.three.geometry, this.three.outline.material)
 						this.three.outline.mesh.scale.multiplyScalar(1.1)
-						this.three.outline.mesh.position.x = this.position.x
-						this.three.outline.mesh.position.y = this.position.y
-						this.three.outline.mesh.position.z = this.position.z
 					
 					f.scene.add(this.three.outline.mesh)
 				}
@@ -175,7 +203,14 @@ var Entity = function()
 					this.three.mesh.rotation.y = this.rotation.y * Math.PI / 180
 					this.three.mesh.rotation.z = this.rotation.z * Math.PI / 180
 
-					if (this.outline)
+					if (this.marker.enabled)
+					{
+						this.three.marker.mesh.position.x = this.position.x
+						this.three.marker.mesh.position.y = this.position.y
+						this.three.marker.mesh.position.z = this.position.z - this.size.height * 0.56 // Place the marker underneath the model (and the outline)
+					}
+
+					if (this.outline.enabled)
 					{
 						// Outline mesh position
 						this.three.outline.mesh.position.x = this.position.x
