@@ -12,11 +12,11 @@ var Entity = function()
 		this.rotation.y = 0
 		this.rotation.z = 0
 
-	this.physics = new Object()
-		this.physics.momentum = new Object()
+	this.outline = false
 
 	this.mesh = new Object() // Mesh type and file location
 	this.three = new Object() // three.js objects and values go here instead of cluttering the engine
+		this.three.outline = new Object()
 
 	this.setPosition = function(x, y, z)
 	{
@@ -63,9 +63,9 @@ var Entity = function()
 		return this
 	}
 
-	this.setFriction = function(value)
+	this.enableOutline = function()
 	{
-		this.physics.friction = value
+		this.outline = true
 
 		return this
 	}
@@ -73,8 +73,6 @@ var Entity = function()
 	this.add = function()
 	{
 		this.build()
-		
-		f.scene.add(this.three.mesh)
 	}
 
 		this.build = function() // This is where the magic happens
@@ -96,8 +94,23 @@ var Entity = function()
 				}
 
 				this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)
-				
+
+				// Load the outline shader if enabled
+				if (this.outline)
+				{
+					this.three.outline.material = new THREE.MeshBasicMaterial({color: 0x00FF00, side: THREE.BackSide})
+					this.three.outline.mesh = new THREE.Mesh(this.three.geometry, this.three.outline.material)
+						this.three.outline.mesh.scale.multiplyScalar(1.1)
+						this.three.outline.mesh.position.x = this.position.x
+						this.three.outline.mesh.position.y = this.position.y
+						this.three.outline.mesh.position.z = this.position.z
+					
+					f.scene.add(this.three.outline.mesh)
+				}
+
 				this.apply()
+
+				f.scene.add(this.three.mesh)
 			}
 		}
 
@@ -105,14 +118,28 @@ var Entity = function()
 			{
 				if (this.mesh.type == 'cube')
 				{
+					// Main mesh position
 					this.three.mesh.position.x = this.position.x
 					this.three.mesh.position.y = this.position.y
 					this.three.mesh.position.z = this.position.z
 
-					// Make sure we feed three.js radians instead of degrees
+					// Main mesh rotation
 					this.three.mesh.rotation.x = this.rotation.x * Math.PI / 180
 					this.three.mesh.rotation.y = this.rotation.y * Math.PI / 180
 					this.three.mesh.rotation.z = this.rotation.z * Math.PI / 180
+
+					if (this.outline)
+					{
+						// Outline mesh position
+						this.three.outline.mesh.position.x = this.position.x
+						this.three.outline.mesh.position.y = this.position.y
+						this.three.outline.mesh.position.z = this.position.z
+
+						// Outline mesh rotation
+						this.three.outline.mesh.rotation.x = this.rotation.x * Math.PI / 180
+						this.three.outline.mesh.rotation.y = this.rotation.y * Math.PI / 180
+						this.three.outline.mesh.rotation.z = this.rotation.z * Math.PI / 180
+					}
 				}
 			}
 

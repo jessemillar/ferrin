@@ -6,10 +6,11 @@ var ferrin = new Ferrin()
 		  .setBackgroundColor('#5c94fc')
 
 var player = new Entity()
-	player.setPosition(0, 0, 0.5)
+	player.setPosition(0, 0, 0.6)
 		  .setMesh('cube')
 		  .setSize(1, 1, 1)
 		  .setTexture('textures/mario.png')
+		  .enableOutline()
 		  .add()
 		   
 var ground = new Plane()
@@ -31,6 +32,8 @@ var camera = new Camera()
 	camera.setPosition(cameraOffsetX, cameraOffsetY, cameraOffsetZ)
 		  .lookAt(player)
 		  .add()
+
+f.camera.updateProjectionMatrix()
 
 var keyboard = new Keyboard()
 
