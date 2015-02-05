@@ -54,8 +54,8 @@ var ground = new Plane()
 		  .add()
 
 var cameraOffsetX = 0
-var cameraOffsetY = -8
-var cameraOffsetZ = 12
+var cameraOffsetY = -10
+var cameraOffsetZ = 20
 
 var camera = new Camera()
 	camera.setPosition(cameraOffsetX, cameraOffsetY, cameraOffsetZ)

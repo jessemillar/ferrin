@@ -147,7 +147,7 @@ var Entity = function()
 				{
 					var size = Math.max(this.size.width, this.size.height)
 
-					this.three.marker.geometry = new THREE.PlaneBufferGeometry(size * 2, size * 2)
+					this.three.marker.geometry = new THREE.PlaneBufferGeometry(size * 3, size * 3)
 
 					this.three.marker.texture = new THREE.ImageUtils.loadTexture(this.marker.texture)
 					this.three.marker.material = new THREE.MeshLambertMaterial({map: this.three.marker.texture, transparent: true})
