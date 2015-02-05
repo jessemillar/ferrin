@@ -39,10 +39,8 @@ var SpotLight = function()
 		{
 			console.log('Light shadow casting enabled')
 			this.three.light.castShadow = true
-			this.three.light.shadowCameraVisible = true
 
-			this.three.light.shadowMapWidth = 1024
-			this.three.light.shadowMapHeight = 1024
+			this.three.light.shadowCameraVisible = true // Debug
 		}
 
 		this.apply()

@@ -77,12 +77,12 @@ var Plane = function()
 					this.three.texture.repeat.y = this.size.depth
 				}
 
-				this.three.material = new THREE.MeshPhongMaterial({map: this.three.texture})
+				this.three.material = new THREE.MeshLambertMaterial({map: this.three.texture})
 			}
 			else if (this.color) // Apply a color if we have one
 			{
-				console.log('setting color')
-				this.three.material = new THREE.MeshPhongMaterial({color: this.color})
+				console.log('Setting plane color')
+				this.three.material = new THREE.MeshLambertMaterial({color: this.color})
 			}
 
 			this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)

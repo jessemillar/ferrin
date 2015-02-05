@@ -112,19 +112,6 @@ var Entity = function()
 
 				this.three.mesh = new THREE.Mesh(this.three.geometry, this.three.material)
 
-				// Load up shadow configurations if enabled
-				if (this.shadows.cast)
-				{
-					console.log('Entity shadow casting enabled')
-					this.three.mesh.castShadow = true
-				}
-
-				if (this.shadows.receive)
-				{
-					console.log('Entity shadow receiving enabled')
-					this.three.mesh.receiveShadow = true
-				}
-
 				// Load the outline shader if enabled
 				if (this.outline)
 				{
@@ -136,6 +123,19 @@ var Entity = function()
 						this.three.outline.mesh.position.z = this.position.z
 					
 					f.scene.add(this.three.outline.mesh)
+				}
+
+				// Load up shadow configurations if enabled
+				if (this.shadows.cast)
+				{
+					console.log('Entity shadow casting enabled')
+					this.three.mesh.castShadow = true
+				}
+
+				if (this.shadows.receive)
+				{
+					console.log('Entity shadow receiving enabled')
+					this.three.mesh.receiveShadow = true
 				}
 
 				this.apply()
