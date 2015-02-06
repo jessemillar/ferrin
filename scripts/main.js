@@ -22,7 +22,7 @@ var spotlight = new Light()
 		 	 .add()
 
 var player = new Entity()
-	player.setSize(2, 1, 1)
+	player.setSize(1, 1, 1)
 		  .setPosition(0, 0, player.size.height / 2)
 		  .setMesh('cube')
 		  .setTexture('textures/mario.png')
@@ -34,7 +34,7 @@ var player = new Entity()
 		  .add()
 
 var playerHealth = new HUD()
-	playerHealth.setSize(270, 45)
+	playerHealth.setSize(200, 25)
 			    .setImage('images/health_bar.png')
 			    .add()
 
@@ -53,7 +53,7 @@ var enemies = new Group()
 	enemies.add(enemy)
 
 var enemyHealth = new HUD()
-	enemyHealth.setSize(270, 45)
+	enemyHealth.setSize(200, 25)
 			   .setImage('images/health_bar.png')
 			   .add()
 
