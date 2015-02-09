@@ -40,7 +40,7 @@ var Entity = function()
 		return this
 	}
 
-	this.setSize = function(width, height, depth)
+	this.setSize = function(width, depth, height)
 	{
 		this.size.width = width
 		this.size.height = height
@@ -127,7 +127,7 @@ var Entity = function()
 		{
 			if (this.mesh.type == 'cube')
 			{
-				this.three.geometry = new THREE.BoxGeometry(this.size.width, this.size.height, this.size.depth)
+				this.three.geometry = new THREE.BoxGeometry(this.size.width, this.size.depth, this.size.height)
 
 				// Load a texture or color, not both
 				if (this.texture)
@@ -280,12 +280,10 @@ var Entity = function()
 					{
 						if (aYPrevious + aDepth > bY - bDepth) // Top side correction
 						{
-							console.log('Top')
 							this.position.y = b.position.y + bDepth + aDepth
 						}
 						else if (aYPrevious - aDepth < bY + bDepth) // Bottom side correction
 						{
-							console.log('Bottom')
 							this.position.y = b.position.y - bDepth - aDepth
 						}
 					}
@@ -293,12 +291,10 @@ var Entity = function()
 					{
 						if (aXPrevious + aWidth < bX - bWidth) // Left side correction
 						{
-							console.log('Left')
 							this.position.x = b.position.x - bWidth - aWidth * 1.001 // Not sure why I need this hack
 						}
 						else if (aXPrevious - aWidth > bX + bWidth) // Right side correction
 						{
-							console.log('Right')
 							this.position.x = b.position.x + bWidth + aWidth * 1.001 // Not sure why I need this hack
 						}
 					}

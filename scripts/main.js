@@ -22,7 +22,7 @@ var spotlight = new Light()
 		 	 .add()
 
 var player = new Entity()
-	player.setSize(5, 5, 5)
+	player.setSize(1, 1, 1)
 		  .setPosition(0, 0, player.size.height / 2)
 		  .setMesh('cube')
 		  .setTexture('textures/mario.png')
@@ -38,19 +38,19 @@ var playerHealth = new HUD()
 			    .setImage('images/health_bar.png')
 			    .add()
 
-var enemy = new Entity()
-	enemy.setSize(1.5, 1.5, 1.5)
-		 .setPosition(tool.random(-5, 5), tool.random(-5, 5), enemy.size.height / 2)
+var wall = new Entity()
+	wall.setSize(1.5, 20, 1.5)
+		 .setPosition(-5, 0, wall.size.height / 2)
 		 .setMesh('cube')
 		 .setTexture('textures/ground.png')
 		 // .setColor(0x0aeedf)
 		 .castShadows()
 		 .receiveShadows()
-		 .enableOutline(0xff0000)
+		 // .enableOutline(0xff0000)
 		 .add()
 
-var enemies = new Group()
-	enemies.add(enemy)
+var environment = new Group()
+	environment.add(wall)
 
 var enemyHealth = new HUD()
 	enemyHealth.setSize(200, 25)
@@ -77,7 +77,7 @@ var camera = new Camera()
 function main() // This function has to be named "main" for now
 {
 	playerHealth.healthBar(player, healthOffset)
-	enemyHealth.healthBar(enemy, healthOffset)
+	// enemyHealth.healthBar(enemy, healthOffset)
 
 	// if (tool.checkCollision(player, enemy))
 	// {
@@ -94,20 +94,20 @@ function main() // This function has to be named "main" for now
 		// {
 			if (keyboard.w)
 			{
-				player.move('y', movementSpeed, enemy)
+				player.move('y', movementSpeed, wall)
 			}
 			else if (keyboard.s)
 			{
-				player.move('y', -movementSpeed, enemy)
+				player.move('y', -movementSpeed, wall)
 			}
 
 			if (keyboard.a)
 			{
-				player.move('x', -movementSpeed, enemy)
+				player.move('x', -movementSpeed, wall)
 			}
 			else if (keyboard.d)
 			{
-				player.move('x', movementSpeed, enemy)
+				player.move('x', movementSpeed, wall)
 			}
 
 			player.autoFace() // Run after updating the position with movement
