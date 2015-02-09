@@ -275,15 +275,13 @@ var Entity = function()
 			this.position.z += speed
 		}
 
-		this.checkCollisionGroup(obstacle) // Check for group and then check for and correct collisions
+		this.checkCollision(obstacle) // Check for group and then check for and correct collisions
 
 		this.apply()
 	}
 
-		this.checkCollisionGroup = function(obstacle)
+		this.checkCollision = function(obstacle)
 		{
-			var b // The object/objects we'll check
-
 			if (obstacle.database)
 			{
 				for (var i = 0; i < obstacle.database.length; i++)
@@ -292,12 +290,6 @@ var Entity = function()
 				}
 			}
 			else
-			{
-				this.checkCollision(obstacle)
-			}
-		}
-
-			this.checkCollision = function(obstacle)
 			{
 				var aX = this.position.x
 				var aY = this.position.y
@@ -337,6 +329,7 @@ var Entity = function()
 					}
 				}
 			}
+		}
 
 	this.rotate = function(axis, degree)
 	{

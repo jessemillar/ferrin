@@ -52,50 +52,35 @@ var Tool = function()
 
 	this.checkCollision = function(a, b)
 	{
-		if (!a.deleted)
+		if (b.database)
 		{
-			if (b.database)
+			for (var i = 0; i < b.database.length; i++)
 			{
-				// var i = b.database.length
-
-				// while (i--)
-				// {
-				// 	if (!b.database[i].deleted)
-				// 	{
-				// 		if (a.position.x - a.size.width / 2 < b.database[i].x + b.database[i].width && a.position.x - a.size.width / 2 + a.size.width > b.database[i].x && a.position.y - a.size.depth / 2 < b.database[i].y + b.database[i].height && a.position.y - a.size.depth / 2 + a.size.depth > b.database[i].y)
-				// 		{
-				// 			return b.database[i]
-				// 		}
-				// 	}
-				// }
-
-				// return false
-			}
-			else
-			{
-				var aX = a.position.x - a.size.width / 2
-				var aY = a.position.y - a.size.depth / 2
-				var aWidth = a.size.width
-				var aDepth = a.size.depth
-
-				var bX = b.position.x - b.size.width / 2
-				var bY = b.position.y - b.size.depth / 2
-				var bWidth = b.size.width
-				var bDepth = b.size.depth
-
-				if (aX < bX + bWidth && aX + aWidth > bX && aY < bY + bDepth && aY + aDepth > bY)
-				{
-					return b
-				}
-				else
-				{
-					return false
-				}
+				this.checkCollision(b.database[i])
 			}
 		}
 		else
 		{
-			return false
+			var aX = a.position.x
+			var aY = a.position.y
+				aXPrevious = a.previous.position.x
+				aYPrevious = a.previous.position.y
+			var aWidth = a.size.width / 2
+			var aDepth = a.size.depth / 2
+
+			var bX = b.position.x
+			var bY = b.position.y
+			var bWidth = b.size.width / 2
+			var bDepth = b.size.depth / 2
+
+			if (aY + aDepth > bY - bDepth && aY - aDepth < bY + bDepth && aX - aWidth < bX + bWidth && aX + aWidth > bX - bWidth) // If inside box (check top, bottom, left, then right)
+			{
+				return true
+			}
+			else
+			{
+				return false
+			}
 		}
 	}
 }

@@ -1,7 +1,7 @@
 var rotationSpeed = 0.05
 var movementSpeed = rotationSpeed
 
-var healthOffset = 40
+var healthOffset = 30
 
 var keyboard = new Keyboard()
 var tool = new Tool()
@@ -68,10 +68,22 @@ var playerHealth = new HUD()
 			    .setImage('images/health_bar.png')
 			    .add()
 
-// var enemyHealth = new HUD()
-// 	enemyHealth.setSize(200, 25)
-// 			   .setImage('images/health_bar.png')
-// 			   .add()
+var enemy = new Entity()
+	enemy.setSize(0.5, 0.5, 0.5)
+		  .setPosition(3, 3, player.size.height / 2)
+		  .setMesh('cube')
+		  .setTexture('textures/mario.png')
+		  // .setColor(0x0aeedf)
+		  .castShadows()
+		  .receiveShadows()
+		  .enableOutline(0xff0000)
+		  .enableMarker('textures/marker.png', 2, 2)
+		  .add()
+
+var enemyHealth = new HUD()
+	enemyHealth.setSize(200, 25)
+			   .setImage('images/health_bar.png')
+			   .add()
 
 var ground = new Plane()
 	ground.setPosition(0, 0, -0.1)
@@ -93,16 +105,16 @@ var camera = new Camera()
 function main() // This function has to be named "main" for now
 {
 	playerHealth.healthBar(player, healthOffset)
-	// enemyHealth.healthBar(enemy, healthOffset)
+	enemyHealth.healthBar(enemy, healthOffset)
 
-	// if (tool.checkCollision(player, enemy))
-	// {
-	// 	player.setOutlineColor(0xff0000)
-	// }
-	// else
-	// {
-	// 	player.setOutlineColor(0x00ff00)
-	// }
+	if (tool.checkCollision(player, enemy))
+	{
+		player.setOutlineColor(0xff0000)
+	}
+	else
+	{
+		player.setOutlineColor(0x00ff00)
+	}
 
 	if (keyboard.w || keyboard.a || keyboard.s || keyboard.d) // If we're using valid controls
 	{
