@@ -242,8 +242,6 @@ var Entity = function()
 
 	this.move = function(axis, speed, b)
 	{
-		this.logPosition()
-
 		if (axis == 'x')
 		{
 			this.position.x += speed
@@ -291,17 +289,17 @@ var Entity = function()
 							this.position.y = b.position.y - bDepth - aDepth
 						}
 					}
-					else if (aYPrevious + aDepth < bY + bDepth && aYPrevious - aDepth > bY - bDepth) // Left or right
+					else if (aYPrevious - aDepth < bY + bDepth && aYPrevious + aDepth > bY - bDepth) // Left or right
 					{
 						if (aXPrevious + aWidth < bX - bWidth) // Left side correction
 						{
 							console.log('Left')
-							this.position.x = b.position.x - bWidth - aWidth
+							this.position.x = b.position.x - bWidth - aWidth * 1.001 // Not sure why I need this hack
 						}
 						else if (aXPrevious - aWidth > bX + bWidth) // Right side correction
 						{
 							console.log('Right')
-							this.position.x = b.position.x + bWidth + aWidth
+							this.position.x = b.position.x + bWidth + aWidth * 1.001 // Not sure why I need this hack
 						}
 					}
 				}

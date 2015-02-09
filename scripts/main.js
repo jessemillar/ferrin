@@ -22,7 +22,7 @@ var spotlight = new Light()
 		 	 .add()
 
 var player = new Entity()
-	player.setSize(1, 1, 1)
+	player.setSize(5, 5, 5)
 		  .setPosition(0, 0, player.size.height / 2)
 		  .setMesh('cube')
 		  .setTexture('textures/mario.png')
@@ -111,7 +111,7 @@ function main() // This function has to be named "main" for now
 			}
 
 			player.autoFace() // Run after updating the position with movement
-			// player.update()
+			player.update()
 		// }
 	}
 
