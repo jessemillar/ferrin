@@ -2,20 +2,14 @@ var Keyboard = function()
 {
     var self = this
 
-    this.active = false
-
     window.onkeydown = function()
     {
         self.pressed(event)
-
-        self.active = true
     }
 
     window.onkeyup = function()
     {
         self.cancel(event)
-
-        self.active = false
     }
 
     this.pressed = function(event)
