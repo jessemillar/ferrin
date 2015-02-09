@@ -4,7 +4,7 @@ var Plane = function()
 	this.size = new Object()
 
 	this.texture = new Object()
-	this.texture.tile = true // Tile textures by default
+		this.texture.tile = true // Tile textures by default
 
 	this.shadows = new Object()
 		this.shadows.receive = false

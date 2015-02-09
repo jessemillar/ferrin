@@ -21,6 +21,9 @@ var Entity = function()
 	this.marker = new Object()
 		this.marker.enabled = false
 
+	this.texture = new Object()
+		this.texture.tile = false // Don't tile textures by default
+
 	this.mesh = new Object() // Mesh type and file location
 	this.three = new Object() // three.js objects and values go here instead of cluttering the engine
 		this.three.outline = new Object()
@@ -66,10 +69,17 @@ var Entity = function()
 
 	this.setTexture = function(texture)
 	{
-		this.texture = texture
+		this.texture.file = texture
 
 		return this
 	}
+
+		this.enableTile = function()
+		{
+			this.texture.tile = true
+
+			return this
+		}
 
 	this.castShadows = function()
 	{
@@ -130,9 +140,19 @@ var Entity = function()
 				this.three.geometry = new THREE.BoxGeometry(this.size.width, this.size.depth, this.size.height)
 
 				// Load a texture or color, not both
-				if (this.texture)
+				if (this.texture.file)
 				{
-					this.three.texture = new THREE.ImageUtils.loadTexture(this.texture)
+					this.three.texture = new THREE.ImageUtils.loadTexture(this.texture.file)
+
+					if (this.texture.tile) // Tile the texture if we haven't said otherwise
+					{
+						this.three.texture.wrapS = THREE.RepeatWrapping
+						this.three.texture.wrapT = THREE.RepeatWrapping
+						this.three.texture.repeat.x = this.size.width
+						this.three.texture.repeat.y = this.size.depth
+						this.three.texture.repeat.z = this.size.height
+					}
+
 					this.three.material = new THREE.MeshLambertMaterial({map: this.three.texture})
 				}
 				else if (this.color)
