@@ -79,40 +79,40 @@ function main() // This function has to be named "main" for now
 	playerHealth.healthBar(player, healthOffset)
 	enemyHealth.healthBar(enemy, healthOffset)
 
-	if (tool.checkCollision(player, enemy))
-	{
-		player.setOutlineColor(0xff0000)
-	}
-	else
-	{
-		player.setOutlineColor(0x00ff00)
-	}
+	// if (tool.checkCollision(player, enemy))
+	// {
+	// 	player.setOutlineColor(0xff0000)
+	// }
+	// else
+	// {
+	// 	player.setOutlineColor(0x00ff00)
+	// }
 
 	if (keyboard.w || keyboard.a || keyboard.s || keyboard.d) // If we're using valid controls
 	{
-		if (!tool.checkSolid(player, enemy))
-		{
+		// if (!tool.checkSolid(player, enemy))
+		// {
 			if (keyboard.w)
 			{
-				player.move('y', movementSpeed)
+				player.move('y', movementSpeed, enemy)
 			}
 			else if (keyboard.s)
 			{
-				player.move('y', -movementSpeed)
+				player.move('y', -movementSpeed, enemy)
 			}
 
 			if (keyboard.a)
 			{
-				player.move('x', -movementSpeed)
+				player.move('x', -movementSpeed, enemy)
 			}
 			else if (keyboard.d)
 			{
-				player.move('x', movementSpeed)
+				player.move('x', movementSpeed, enemy)
 			}
 
 			player.autoFace() // Run after updating the position with movement
-			player.update()
-		}
+			// player.update()
+		// }
 	}
 
 	camera.follow(player, cameraOffsetX, cameraOffsetY, cameraOffsetZ)

@@ -233,8 +233,17 @@ var Entity = function()
 		this.logPosition() // Update past position to current position
 	}
 
-	this.move = function(axis, speed)
+		this.logPosition = function()
+		{
+			this.previous.position.x = this.position.x
+			this.previous.position.y = this.position.y
+			this.previous.position.z = this.position.z
+		}
+
+	this.move = function(axis, speed, b)
 	{
+		this.logPosition()
+
 		if (axis == 'x')
 		{
 			this.position.x += speed
@@ -247,14 +256,56 @@ var Entity = function()
 		{
 			this.position.z += speed
 		}
+
+		this.checkCollision(b) // Check for and correct collisions
+
+		this.apply()
 	}
 
-		this.logPosition = function()
-		{
-			this.previous.position.x = this.position.x
-			this.previous.position.y = this.position.y
-			this.previous.position.z = this.position.z
-		}
+			this.checkCollision = function(b)
+			{
+				var aX = this.position.x
+				var aY = this.position.y
+					aXPrevious = this.previous.position.x
+					aYPrevious = this.previous.position.y
+				var aWidth = this.size.width / 2
+				var aDepth = this.size.depth / 2
+
+				var bX = b.position.x
+				var bY = b.position.y
+				var bWidth = b.size.width / 2
+				var bDepth = b.size.depth / 2
+
+				if (aY + aDepth > bY - bDepth && aY - aDepth < bY + bDepth && aX - aWidth < bX + bWidth && aX + aWidth > bX - bWidth) // If inside box (check top, bottom, left, then right)
+				{
+					if (aXPrevious + aWidth > bX - bWidth && aXPrevious - aWidth < bX + bWidth) // Top or bottom
+					{
+						if (aYPrevious + aDepth > bY - bDepth) // Top side correction
+						{
+							console.log('Top')
+							this.position.y = b.position.y + bDepth + aDepth
+						}
+						else if (aYPrevious - aDepth < bY + bDepth) // Bottom side correction
+						{
+							console.log('Bottom')
+							this.position.y = b.position.y - bDepth - aDepth
+						}
+					}
+					else if (aYPrevious + aDepth < bY + bDepth && aYPrevious - aDepth > bY - bDepth) // Left or right
+					{
+						if (aXPrevious + aWidth < bX - bWidth) // Left side correction
+						{
+							console.log('Left')
+							this.position.x = b.position.x - bWidth - aWidth
+						}
+						else if (aXPrevious - aWidth > bX + bWidth) // Right side correction
+						{
+							console.log('Right')
+							this.position.x = b.position.x + bWidth + aWidth
+						}
+					}
+				}
+			}
 
 	this.rotate = function(axis, degree)
 	{

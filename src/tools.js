@@ -98,47 +98,4 @@ var Tool = function()
 			return false
 		}
 	}
-
-	this.checkSolid = function(a, b)
-	{
-		var c = this.checkCollision(a, b)
-
-		if (c)
-		{
-			// Take previous position of first object
-			var aX = a.position.x
-			var aY = a.position.y
-			var aWidth = a.size.width
-			var aDepth = a.size.depth
-
-			// Take current position of second object/group
-			var cX = c.position.x
-			var cY = c.position.y
-		
-			if (aY + a.size.depth <= cY) // "Top" side
-			{
-				console.log('Top')
-				// a.position.y = cY + a.size.depth
-			}
-			else if (aY >= cY + c.size.depth) // "Bottom" side
-			{
-				console.log('Bottom')
-				// a.position.y = cY + c.size.depth
-			}
-			else if (aX + a.size.width < cX) // Left side
-			{
-				console.log('Left')
-				// a.position.x = cX - a.size.width
-			}
-			else if (aX > cX && aY > cY - c.size.depth / 2 && aY < cY + c.size.depth / 2) // Right side
-			{
-				console.log('Right')
-				a.position.x = cX + c.size.width
-			}
-
-			return true
-		}
-
-		return false
-	}
 }
