@@ -90,26 +90,29 @@ function main() // This function has to be named "main" for now
 
 	if (keyboard.w || keyboard.a || keyboard.s || keyboard.d) // If we're using valid controls
 	{
-		if (keyboard.w)
+		if (!tool.checkSolid(player, enemy))
 		{
-			player.move('y', movementSpeed)
-		}
-		else if (keyboard.s)
-		{
-			player.move('y', -movementSpeed)
-		}
+			if (keyboard.w)
+			{
+				player.move('y', movementSpeed)
+			}
+			else if (keyboard.s)
+			{
+				player.move('y', -movementSpeed)
+			}
 
-		if (keyboard.a)
-		{
-			player.move('x', -movementSpeed)
-		}
-		else if (keyboard.d)
-		{
-			player.move('x', movementSpeed)
-		}
+			if (keyboard.a)
+			{
+				player.move('x', -movementSpeed)
+			}
+			else if (keyboard.d)
+			{
+				player.move('x', movementSpeed)
+			}
 
-		player.autoFace() // Run after updating the position with movement
-		player.update()
+			player.autoFace() // Run after updating the position with movement
+			player.update()
+		}
 	}
 
 	camera.follow(player, cameraOffsetX, cameraOffsetY, cameraOffsetZ)
