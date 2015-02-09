@@ -260,7 +260,7 @@ var Entity = function()
 			this.previous.position.z = this.position.z
 		}
 
-	this.move = function(axis, speed, b)
+	this.move = function(axis, speed, obstacle)
 	{
 		if (axis == 'x')
 		{
@@ -275,12 +275,29 @@ var Entity = function()
 			this.position.z += speed
 		}
 
-		this.checkCollision(b) // Check for and correct collisions
+		this.checkCollisionGroup(obstacle) // Check for group and then check for and correct collisions
 
 		this.apply()
 	}
 
-			this.checkCollision = function(b)
+		this.checkCollisionGroup = function(obstacle)
+		{
+			var b // The object/objects we'll check
+
+			if (obstacle.database)
+			{
+				for (var i = 0; i < obstacle.database.length; i++)
+				{
+					this.checkCollision(obstacle.database[i])
+				}
+			}
+			else
+			{
+				this.checkCollision(obstacle)
+			}
+		}
+
+			this.checkCollision = function(obstacle)
 			{
 				var aX = this.position.x
 				var aY = this.position.y
@@ -289,10 +306,10 @@ var Entity = function()
 				var aWidth = this.size.width / 2
 				var aDepth = this.size.depth / 2
 
-				var bX = b.position.x
-				var bY = b.position.y
-				var bWidth = b.size.width / 2
-				var bDepth = b.size.depth / 2
+				var bX = obstacle.position.x
+				var bY = obstacle.position.y
+				var bWidth = obstacle.size.width / 2
+				var bDepth = obstacle.size.depth / 2
 
 				if (aY + aDepth > bY - bDepth && aY - aDepth < bY + bDepth && aX - aWidth < bX + bWidth && aX + aWidth > bX - bWidth) // If inside box (check top, bottom, left, then right)
 				{
@@ -300,22 +317,22 @@ var Entity = function()
 					{
 						if (aYPrevious + aDepth > bY - bDepth) // Top side correction
 						{
-							this.position.y = b.position.y + bDepth + aDepth
+							this.position.y = obstacle.position.y + bDepth + aDepth
 						}
 						else if (aYPrevious - aDepth < bY + bDepth) // Bottom side correction
 						{
-							this.position.y = b.position.y - bDepth - aDepth
+							this.position.y = obstacle.position.y - bDepth - aDepth
 						}
 					}
 					else if (aYPrevious - aDepth < bY + bDepth && aYPrevious + aDepth > bY - bDepth) // Left or right
 					{
 						if (aXPrevious + aWidth < bX - bWidth) // Left side correction
 						{
-							this.position.x = b.position.x - bWidth - aWidth * 1.001 // Not sure why I need this hack
+							this.position.x = obstacle.position.x - bWidth - aWidth * 1.001 // Not sure why I need this hack
 						}
 						else if (aXPrevious - aWidth > bX + bWidth) // Right side correction
 						{
-							this.position.x = b.position.x + bWidth + aWidth * 1.001 // Not sure why I need this hack
+							this.position.x = obstacle.position.x + bWidth + aWidth * 1.001 // Not sure why I need this hack
 						}
 					}
 				}

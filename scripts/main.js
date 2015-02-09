@@ -21,6 +21,36 @@ var spotlight = new Light()
 		 	 .castShadows()
 		 	 .add()
 
+var obstacles = new Group()
+
+var wall = new Entity()
+	wall.setSize(1.5, 20, 1.5)
+		.setPosition(-5, 0, wall.size.height / 2)
+		.setMesh('cube')
+		.setTexture('textures/ground.png')
+		.enableTile()
+		// .setColor(0x0aeedf)
+		.castShadows()
+		.receiveShadows()
+		// .enableOutline(0xff0000)
+		.add()
+
+obstacles.add(wall)
+
+var wall2 = new Entity()
+	wall2.setSize(1.5, 20, 1.5)
+		 .setPosition(5, 0, wall.size.height / 2)
+		 .setMesh('cube')
+		 .setTexture('textures/ground.png')
+		 .enableTile()
+		 // .setColor(0x0aeedf)
+		 .castShadows()
+		 .receiveShadows()
+		 // .enableOutline(0xff0000)
+		 .add()
+
+obstacles.add(wall2)
+
 var player = new Entity()
 	player.setSize(1, 1, 1)
 		  .setPosition(0, 0, player.size.height / 2)
@@ -37,21 +67,6 @@ var playerHealth = new HUD()
 	playerHealth.setSize(200, 25)
 			    .setImage('images/health_bar.png')
 			    .add()
-
-var wall = new Entity()
-	wall.setSize(1.5, 20, 1.5)
-		 .setPosition(-5, 0, wall.size.height / 2)
-		 .setMesh('cube')
-		 .setTexture('textures/ground.png')
-		 .enableTile()
-		 // .setColor(0x0aeedf)
-		 .castShadows()
-		 .receiveShadows()
-		 // .enableOutline(0xff0000)
-		 .add()
-
-var environment = new Group()
-	environment.add(wall)
 
 // var enemyHealth = new HUD()
 // 	enemyHealth.setSize(200, 25)
@@ -95,20 +110,20 @@ function main() // This function has to be named "main" for now
 		// {
 			if (keyboard.w)
 			{
-				player.move('y', movementSpeed, wall)
+				player.move('y', movementSpeed, obstacles)
 			}
 			else if (keyboard.s)
 			{
-				player.move('y', -movementSpeed, wall)
+				player.move('y', -movementSpeed, obstacles)
 			}
 
 			if (keyboard.a)
 			{
-				player.move('x', -movementSpeed, wall)
+				player.move('x', -movementSpeed, obstacles)
 			}
 			else if (keyboard.d)
 			{
-				player.move('x', movementSpeed, wall)
+				player.move('x', movementSpeed, obstacles)
 			}
 
 			player.autoFace() // Run after updating the position with movement
